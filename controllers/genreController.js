@@ -6,7 +6,7 @@ const { sanitizeBody } = require('express-validator/filter');
 
 // Display list of all Genre.
 exports.genre_list = function(req, res, next) {
-    // res.send('NOT IMPLEMENTED: Genre list');
+    
     Genre.find()
     .sort([['genre_name','ascending']])
     .exec(function(err, list_genres){
@@ -17,9 +17,8 @@ exports.genre_list = function(req, res, next) {
 
 // Display detail page for a specific Genre.
 exports.genre_detail = function(req, res,next) {
-    // res.send('NOT IMPLEMENTED: Genre detail: ' + req.params.id);
+    
     async.parallel({
-        
         genre:function(callback){
             Genre.findById(req.params.id)
             .exec(callback);
@@ -43,7 +42,6 @@ exports.genre_detail = function(req, res,next) {
 
 // Display Genre create form on GET.
 exports.genre_create_get = function(req, res, next) {
-    // res.send('NOT IMPLEMENTED: Genre create GET');
     res.render('genre_form', {title:'Create Genre',});
 };
 
@@ -94,6 +92,7 @@ exports.genre_create_post = [
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = function(req, res, next) {
+    
     async.parallel({
         genres: function(callback){
             Genre.findById(req.params.id).exec(callback);
