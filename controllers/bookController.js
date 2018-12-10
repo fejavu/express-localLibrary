@@ -7,7 +7,7 @@ const { body,validationResult } = require('express-validator/check');
 const { sanitizeBody } = require('express-validator/filter');
 
 exports.index = function(req, res) {
-    // res.send('NOT IMPLEMENTED: Site Home Page');
+
     async.parallel({
         book_count:function(callback){
             Book.count({},callback);
@@ -32,8 +32,6 @@ exports.index = function(req, res) {
 
 // Display list of all books.
 exports.book_list = function(req, res, next) {
-    // res.send('NOT IMPLEMENTED: Book list');
-
     Book.find({}, 'title author')
     .populate('author')
     .exec(function(err, list_books){
@@ -43,7 +41,7 @@ exports.book_list = function(req, res, next) {
 
 // Display detail page for a specific book.
 exports.book_detail = function(req, res) {
-    // res.send('NOT IMPLEMENTED: Book detail: ' + req.params.id);
+    
     async.parallel({
         book:function(callback){
             Book.findById(req.params.id)
@@ -69,8 +67,7 @@ exports.book_detail = function(req, res) {
 
 // Display book create form on GET.
 exports.book_create_get = function(req, res, next) {
-
-    //Get all authors and genres.which we can use for adding to our book
+    
     async.parallel({
         authors:function(callback) {
             Author.find(callback);
@@ -88,7 +85,8 @@ exports.book_create_get = function(req, res, next) {
 
 // Handle book create on POST.
 exports.book_create_post = [
-    //Convert the ganre to an array.
+
+    //Convert the genre to an array.
     (req, res, next) => {
         if(!(req.body.gnere instanceof Array)){
             if(typeof req.body.genre === undefined)
@@ -204,6 +202,7 @@ exports.book_delete_post = function(req, res) {
 
 // Display book update form on GET.
 exports.book_update_get = function(req, res, next) {
+    
     async.parallel({
         book: function(callback){
             Book.findById(req.params.id).populate('author').populate('genre').exec(callback);
