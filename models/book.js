@@ -10,12 +10,10 @@ var BookSchema = new Schema({
     genre:[{type:Schema.ObjectId, ref:'Genre'}]
 });
 
-//Virtual for book's URL
-BookSchema
-.virtual('url')
-.get(function(){
+// Virtual for book's URL
+BookSchema.virtual('url').get(function(){
     return '/catalog/book/' + this._id;
 });
 
-//Export model
+// Export model
 module.exports = mongoose.model('Book', BookSchema);
