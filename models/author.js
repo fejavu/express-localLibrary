@@ -25,6 +25,7 @@ AuthorSchema.virtual('url').get(function(){
     return '/catalog/author/' + this._id;
 });
 
+// Virtual for Date format
 AuthorSchema.virtual('formatted_date').get(function(){
     return this.date_of_birth ? moment(this.date_of_birth).format('YYYY/MM/DD') : '';
 });
