@@ -6,8 +6,6 @@ const { sanitizeBody } = require('express-validator/filter');
 
 // Display list of all Authors.
 exports.author_list = function(req, res, next) {
-    // res.send('NOT IMPLEMENTED: Author list');
-
     Author.find()
         .sort([['family_name','ascending']])
         .exec(function(err, list_authors){
